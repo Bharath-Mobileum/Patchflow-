@@ -1,4 +1,4 @@
-const API_BASE = "http://10.10.50.158:8000";
+const API_BASE = "https://washed-used-vexingly.ngrok-free.dev";
 
 async function fetchJSON(url, options = {}) {
   const res = await fetch(url, options);
