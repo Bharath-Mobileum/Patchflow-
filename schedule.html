@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patchflow Schedule</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+<div class="app-bg">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-title">
+          <strong>Patchflow</strong>
+          <span>Security Operations</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="dashboard.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⌂</div>
+            <div class="nav-label">Dashboard</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="servers-only" href="servers.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">🖥</div>
+            <div class="nav-label">Servers</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="active schedule-only" href="schedule.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⏱</div>
+            <div class="nav-label">Schedule</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="admin-only" href="upload.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⬒</div>
+            <div class="nav-label">Upload Data</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="super-admin-only" href="admin.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⚙</div>
+            <div class="nav-label">Admin</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="btn" style="width:100%; justify-content:center;" onclick="logout()">Logout</a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="search" role="search">
+          <div class="search-ico" aria-hidden="true">⌕</div>
+          <input type="search" placeholder="Search schedules…" disabled />
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn" type="button" aria-label="Notifications" disabled>🔔</button>
+          <div class="role-card" aria-label="User role">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="role-meta">
+              <strong id="userRoleText">User</strong>
+              <span id="userEmailText">Not signed in</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page">
+        <section class="page-title">
+          <div>
+            <h1>Schedule</h1>
+            <p>Patch windows and notification dates</p>
+          </div>
+          <div class="actions">
+            <a class="btn" href="dashboard.html">Back to Dashboard</a>
+          </div>
+        </section>
+
+        <section class="cards" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+          <div class="metric">
+            <p class="label">Total Scheduled Servers</p>
+            <div class="value" id="totalScheduled">0</div>
+          </div>
+          <div class="metric">
+            <p class="label">This Month Windows</p>
+            <div class="value" id="thisMonthWindows">0</div>
+          </div>
+          <div class="metric">
+            <p class="label">T-7 Notifications</p>
+            <div class="value" id="notificationDue">0</div>
+          </div>
+          <div class="metric">
+            <p class="label">Missing Maintenance Window</p>
+            <div class="value" id="missingWindow">0</div>
+          </div>
+        </section>
+
+        <section class="panel" style="margin-top:16px;">
+          <h2>Patch Schedule</h2>
+          <p class="subtle">Calculated from server master maintenance windows</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Server Name</th>
+                <th>Owner Email</th>
+                <th>Maintenance Window</th>
+                <th>Next Patch Date</th>
+                <th>Notification Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleTable"></tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
+

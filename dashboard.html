@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patchflow Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+<div class="app-bg">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-title">
+          <strong>Patchflow</strong>
+          <span>Security Operations</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="active" href="dashboard.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⌂</div>
+            <div class="nav-label">Dashboard</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="servers-only" href="servers.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">🖥</div>
+            <div class="nav-label">Servers</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="schedule-only" href="schedule.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⏱</div>
+            <div class="nav-label">Schedule</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="admin-only" href="upload.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⤒</div>
+            <div class="nav-label">Upload Data</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="super-admin-only" href="admin.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⚙</div>
+            <div class="nav-label">Admin</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="btn" style="width:100%; justify-content:center;" onclick="logout()">Logout</a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="search" role="search">
+          <div class="search-ico" aria-hidden="true">⌕</div>
+          <input type="search" placeholder="Search servers, CVEs, owners…" />
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn" type="button" aria-label="Notifications">
+            🔔
+          </button>
+          <div class="role-card" aria-label="User role">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="role-meta">
+              <strong id="userRoleText">User</strong>
+              <span id="userEmailText">Not signed in</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page">
+        <section class="page-title">
+          <div>
+            <h1>Dashboard</h1>
+            <p>Vulnerability, ownership, and patch email overview</p>
+          </div>
+          <div class="actions">
+            <a class="btn primary admin-only" href="upload.html">Upload Data</a>
+            <button class="btn danger" type="button" disabled title="Not configured in backend">Clear Data</button>
+            <button class="btn admin-only" type="button" onclick="triggerMailer()">Send Emails</button>
+            <button class="btn" type="button" disabled title="Not configured in backend">Review Approvals</button>
+          </div>
+        </section>
+
+        <p id="mailerStatus" class="status-text admin-only"></p>
+
+        <section class="cards">
+          <div class="metric">
+            <p class="label">Total Records</p>
+            <div class="value" id="totalRecords">0</div>
+          </div>
+          <div class="metric">
+            <p class="label">Total Servers</p>
+            <div class="value" id="totalServers">0</div>
+          </div>
+          <div class="metric">
+            <p class="label">Total Owners</p>
+            <div class="value" id="totalOwners">0</div>
+          </div>
+          <div class="metric critical">
+            <p class="label">Critical</p>
+            <div class="value" id="criticalCount">0</div>
+          </div>
+          <div class="metric high">
+            <p class="label">High</p>
+            <div class="value" id="highCount">0</div>
+          </div>
+        </section>
+
+        <section class="grid-2">
+          <section class="panel">
+            <h2>Owner Summary</h2>
+            <p class="subtle">Servers and vulnerabilities grouped by owner</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Owner</th>
+                  <th>Servers</th>
+                  <th>Vulnerabilities</th>
+                  <th>Critical</th>
+                  <th>High</th>
+                  <th>Medium</th>
+                  <th>Low</th>
+                </tr>
+              </thead>
+              <tbody id="ownerTable"></tbody>
+            </table>
+          </section>
+
+          <section class="panel" id="schedule">
+            <h2>Upcoming Actions</h2>
+            <p class="subtle">Schedule and operational reminders</p>
+            <div style="display:grid; gap:10px;">
+              <div class="metric" style="box-shadow:none;">
+                <p class="label">Next vulnerability refresh</p>
+                <div class="value" style="font-size:18px; margin-top:6px;">After upload</div>
+              </div>
+              <div class="metric" style="box-shadow:none;">
+                <p class="label">Mailer status</p>
+                <div class="value" style="font-size:18px; margin-top:6px;">Ready</div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="panel" style="margin-top:16px;">
+          <h2>Vulnerability Details</h2>
+          <p class="subtle">Latest 100 items</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Hostname</th>
+                <th>Owner</th>
+                <th>CVE ID</th>
+                <th>Severity</th>
+                <th>Days Open</th>
+                <th>Exploit Status</th>
+              </tr>
+            </thead>
+            <tbody id="vulnerabilityTable"></tbody>
+          </table>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

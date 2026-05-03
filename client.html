@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Patch Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+<div class="app-bg">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-title">
+          <strong>Patchflow</strong>
+          <span>Security Operations</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="dashboard.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⌂</div>
+            <div class="nav-label">Dashboard</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="active" href="client.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">🖥</div>
+            <div class="nav-label">Servers</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="schedule-only" href="schedule.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⏱</div>
+            <div class="nav-label">Schedule</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="btn" style="width:100%; justify-content:center;" onclick="logout()">Logout</a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="search" role="search">
+          <div class="search-ico" aria-hidden="true">⌕</div>
+          <input type="search" placeholder="Search my servers and CVEs…" />
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn" type="button" aria-label="Notifications">🔔</button>
+          <div class="role-card" aria-label="User role">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="role-meta">
+              <strong id="userRoleText">User</strong>
+              <span id="userEmailText">Not signed in</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page">
+        <section class="page-title">
+          <div>
+            <h1>Servers</h1>
+            <p id="clientEmailLabel">Server owner vulnerability details</p>
+          </div>
+          <div class="actions">
+            <a class="btn" href="dashboard.html">Back to Dashboard</a>
+          </div>
+        </section>
+
+        <section class="cards" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+          <div class="metric">
+            <p class="label">My Servers</p>
+            <div class="value" id="clientTotalServers">0</div>
+          </div>
+          <div class="metric">
+            <p class="label">My Vulnerabilities</p>
+            <div class="value" id="clientTotalVulns">0</div>
+          </div>
+          <div class="metric critical">
+            <p class="label">Critical</p>
+            <div class="value" id="clientCritical">0</div>
+          </div>
+          <div class="metric high">
+            <p class="label">High</p>
+            <div class="value" id="clientHigh">0</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>My Vulnerability Details</h2>
+          <p class="subtle">Latest items mapped to your ownership</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Hostname</th>
+                <th>CVE ID</th>
+                <th>Severity</th>
+                <th>Days Open</th>
+                <th>Exploit Status</th>
+              </tr>
+            </thead>
+            <tbody id="clientTable"></tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

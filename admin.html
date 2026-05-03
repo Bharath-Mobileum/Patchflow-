@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - User Management</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+<div class="app-bg">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-title">
+          <strong>Patchflow</strong>
+          <span>Security Operations</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="dashboard.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⌂</div>
+            <div class="nav-label">Dashboard</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="servers-only" href="servers.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">🖥</div>
+            <div class="nav-label">Servers</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="schedule-only" href="schedule.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⏱</div>
+            <div class="nav-label">Schedule</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="admin-only" href="upload.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⤒</div>
+            <div class="nav-label">Upload Data</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+        <a class="active super-admin-only" href="admin.html">
+          <div class="nav-left">
+            <div class="nav-ico" aria-hidden="true">⚙</div>
+            <div class="nav-label">Admin</div>
+          </div>
+          <div class="active-dot" aria-hidden="true"></div>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="btn" style="width:100%; justify-content:center;" onclick="logout()">Logout</a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <div class="search" role="search">
+          <div class="search-ico" aria-hidden="true">⌕</div>
+          <input type="search" placeholder="Search users…" />
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn" type="button" aria-label="Notifications">🔔</button>
+          <div class="role-card" aria-label="User role">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="role-meta">
+              <strong id="userRoleText">User</strong>
+              <span id="userEmailText">Not signed in</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page">
+        <section class="page-title">
+          <div>
+            <h1>Admin</h1>
+            <p>Manage users and access roles</p>
+          </div>
+          <div class="actions">
+            <a class="btn" href="dashboard.html">Back to Dashboard</a>
+          </div>
+        </section>
+
+        <section class="grid-2" style="grid-template-columns: 1fr 1.4fr;">
+          <section class="panel">
+            <h2>Add User</h2>
+            <p class="subtle">Only admin can add, update, or delete users</p>
+
+            <input class="field" type="email" id="newUserEmail" placeholder="User email" autocomplete="email" />
+
+            <div style="display:grid; gap:10px; margin-top:10px;">
+              <select class="field" id="newUserRole">
+                <option value="admin">Admin</option>
+                <option value="patch_admin">Patch Admin</option>
+                <option value="server_owner">Server Owner</option>
+                <option value="read_only">Read Only</option>
+              </select>
+
+              <select class="field" id="newUserStatus">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+
+            <button class="btn primary" onclick="addUser()">Add User</button>
+            <p id="userActionStatus" class="status-text"></p>
+          </section>
+
+          <section class="panel">
+            <h2>Users</h2>
+            <p class="subtle">Update role and status, then click Update</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Change Role</th>
+                  <th>Change Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTable"></tbody>
+            </table>
+          </section>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
